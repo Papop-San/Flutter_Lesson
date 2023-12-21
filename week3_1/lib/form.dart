@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'shopping.dart';
 
 class MyForm extends StatelessWidget {
   const MyForm({Key? key}) : super(key: key);
@@ -13,7 +14,16 @@ class MyForm extends StatelessWidget {
         children: [
           Text("GUI INTERFACE MOBILE"),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return fromShopping();
+                  },
+                ),
+              );
+            },
             child: Text("Submit"),
             style: ElevatedButton.styleFrom(
               fixedSize: const Size(300, 80),
