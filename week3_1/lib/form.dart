@@ -10,26 +10,39 @@ class MyForm extends StatelessWidget {
       appBar: AppBar(
         title: Text("Test Form Input"),
       ),
-      body: Column(
-        children: [
-          Text("GUI INTERFACE MOBILE"),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return fromShopping();
-                  },
-                ),
-              );
-            },
-            child: Text("Submit"),
-            style: ElevatedButton.styleFrom(
-              fixedSize: const Size(300, 80),
+      body: Container(
+        child: Column(
+          children: [
+            MyBtn(context),
+            MyBtn(context),
+            MyBtn(context),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Center MyBtn(BuildContext context) {
+    return Center(
+      child: ElevatedButton(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Go to Shopping"),
+            Icon(Icons.add_shopping_cart_outlined),
+          ],
+        ),
+        style: ElevatedButton.styleFrom(fixedSize:  Size(300, 200)), // Fix the style property
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return fromShopping();
+              },
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
