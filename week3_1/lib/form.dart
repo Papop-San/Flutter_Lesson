@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'shopping.dart'; // Add this line if 'fromShopping()' is defined in 'shopping.dart'.
-
+import './shopping.dart';
 class MyForm extends StatefulWidget {
   const MyForm({Key? key}) : super(key: key);
 
@@ -60,11 +59,11 @@ class _MyFormState extends State<MyForm> {
             MyBtn(context),
             Text(
               "Username is : $_userName",
-              style: TextStyle(fontSize: 20),
+               style: TextStyle(fontSize: 20),textAlign: TextAlign.center
             ),
             Text(
-              "The product name is : $_productName", // Corrected the typo here
-              style: TextStyle(fontSize: 20),
+              "The product name is : $_productName", 
+              style: TextStyle(fontSize: 20),textAlign: TextAlign.center
             )
           ],
         ),
@@ -87,7 +86,7 @@ class _MyFormState extends State<MyForm> {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return fromShopping();
+                return fromShopping(productName: _productName);
               },
             ),
           );

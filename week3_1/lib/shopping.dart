@@ -1,23 +1,34 @@
 import 'package:flutter/material.dart';
 
 class fromShopping extends StatelessWidget {
-  const fromShopping({super.key});
+  final String productName;
+
+  fromShopping({Key? key, required this.productName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(
+      appBar: AppBar(
         title: Text("Shopping Text"),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: (){
+        leading: IconButton(
+          onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text("Go Back"),
+          icon: const Icon(Icons.arrow_back),
         ),
       ),
-
+      body: Container(
+        padding: EdgeInsets.all(20),
+        child: ListView(
+          children: [
+            ListTile(
+              leading: Icon(Icons.account_balance_wallet_outlined),
+              title: Text("Product: $productName"),
+            ),
+            // Add more ListTile widgets for additional items if needed
+          ],
+        ),
+      ),
     );
   }
 }
