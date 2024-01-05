@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import './shopping.dart';
+
 class MyForm extends StatefulWidget {
   const MyForm({Key? key}) : super(key: key);
 
@@ -10,20 +12,31 @@ class MyForm extends StatefulWidget {
 class _MyFormState extends State<MyForm> {
   var _productName;
   var _userName;
+  var _qutitaTive;
+  var _price;
+  var _total;
 
   final _userNameController = TextEditingController();
   final _productNameController = TextEditingController();
+  final _qutitaTiveController = TextEditingController();
+  final _priceController = TextEditingController();
 
   void initState() {
     super.initState();
     _userNameController.addListener(_updateText);
     _productNameController.addListener(_updateText);
+    _priceController.addListener(_updateText);
+    _qutitaTiveController.addListener(_updateText);
   }
 
   void _updateText() {
     setState(() {
       _productName = _productNameController.text;
       _userName = _userNameController.text;
+      _price = double.tryParse(_priceController.text) ?? 0.0;
+      _qutitaTive = int.tryParse(_qutitaTiveController.text) ?? 0;
+
+      _total = _price * _qutitaTive;
     });
   }
 
@@ -46,7 +59,6 @@ class _MyFormState extends State<MyForm> {
               ),
             ),
             SizedBox(height: 10),
-
             TextFormField(
               controller: _productNameController,
               decoration: InputDecoration(
@@ -56,14 +68,42 @@ class _MyFormState extends State<MyForm> {
               ),
             ),
             SizedBox(height: 10),
+            TextFormField(
+              controller: _qutitaTiveController,
+              keyboardType: TextInputType.number,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+              ],
+              decoration: InputDecoration(
+                labelText: "Quantity",
+                icon: Icon(Icons.verified_user_outlined),
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 10),
+            TextFormField(
+              controller: _priceController,
+              keyboardType: TextInputType.number,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+              ],
+              decoration: InputDecoration(
+                labelText: "Price",
+                icon: Icon(Icons.verified_user_outlined),
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 10),
             MyBtn(context),
             Text(
               "Username is : $_userName",
-               style: TextStyle(fontSize: 20),textAlign: TextAlign.center
+              style: TextStyle(fontSize: 20),
+              textAlign: TextAlign.center,
             ),
             Text(
-              "The product name is : $_productName", 
-              style: TextStyle(fontSize: 20),textAlign: TextAlign.center
+              "The product name is : $_productName",
+              style: TextStyle(fontSize: 20),
+              textAlign: TextAlign.center,
             )
           ],
         ),
@@ -86,7 +126,11 @@ class _MyFormState extends State<MyForm> {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return fromShopping(productName: _productName);
+                return fromShopping(
+                  productName: _productName,
+                  userName: _userName,
+                  totalPrice: _total.toInt(),
+                );
               },
             ),
           );
