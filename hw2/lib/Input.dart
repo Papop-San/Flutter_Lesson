@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './result.dart';
+import 'dart:math';
 
 class Inputfrom extends StatefulWidget {
   const Inputfrom({super.key});
@@ -9,7 +10,40 @@ class Inputfrom extends StatefulWidget {
 }
 
 class _InputfromState extends State<Inputfrom> {
-  String selectedShape = 'Square'; // Default selection for the shape
+  String selectedShape = 'Square';
+  var _widht;
+  var _height;
+  var _radian;
+
+  //Value of Squre
+  var _area;
+  var _perimater;
+
+  //Value of Circle
+  var _circumference;
+
+  final _widthController = TextEditingController();
+  final _heightController = TextEditingController();
+  final _radianController = TextEditingController();
+
+  void initState() {
+    super.initState();
+    _widthController.addListener(_updateText);
+    _heightController.addListener(_updateText);
+    _radianController.addListener(_updateText);
+  }
+
+  void _updateText() {
+    _widht = int.tryParse(_widthController.text) ?? 0;
+    _height = int.tryParse(_heightController.text) ?? 0;
+    _radian = int.tryParse(_radianController.text) ?? 0;
+
+    //Result Squre
+    _area = _widht * _height;
+    _perimater = 2 * (_widht + _area);
+
+    //Result Circle
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +82,7 @@ class _InputfromState extends State<Inputfrom> {
             Padding(
               padding: const EdgeInsets.only(bottom: 10.0),
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText:
                       "${selectedShape == 'Square' ? 'Width' : 'Radius'}",
@@ -72,6 +107,7 @@ class _InputfromState extends State<Inputfrom> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: TextFormField(
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     labelText: 'Height',
                     prefixIcon: Icon(Icons.height),
