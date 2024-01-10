@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import './result.dart';
-import 'dart:math';
 
 class Inputfrom extends StatefulWidget {
-  const Inputfrom({super.key});
+  const Inputfrom({Key? key});
 
   @override
   State<Inputfrom> createState() => _InputfromState();
@@ -11,16 +10,9 @@ class Inputfrom extends StatefulWidget {
 
 class _InputfromState extends State<Inputfrom> {
   String selectedShape = 'Square';
-  var _widht;
-  var _height;
-  var _radian;
-
-  //Value of Squre
-  var _area;
-  var _perimater;
-
-  //Value of Circle
-  var _circumference;
+  late double _widht;
+  late double _height;
+  late double _radian;
 
   final _widthController = TextEditingController();
   final _heightController = TextEditingController();
@@ -34,15 +26,9 @@ class _InputfromState extends State<Inputfrom> {
   }
 
   void _updateText() {
-    _widht = int.tryParse(_widthController.text) ?? 0;
-    _height = int.tryParse(_heightController.text) ?? 0;
-    _radian = int.tryParse(_radianController.text) ?? 0;
-
-    //Result Squre
-    _area = _widht * _height;
-    _perimater = 2 * (_widht + _area);
-
-    //Result Circle
+    _widht = double.tryParse(_widthController.text) ?? 0;
+    _height = double.tryParse(_heightController.text) ?? 0;
+    _radian = double.tryParse(_radianController.text) ?? 0;
   }
 
   @override
@@ -82,13 +68,18 @@ class _InputfromState extends State<Inputfrom> {
             Padding(
               padding: const EdgeInsets.only(bottom: 10.0),
               child: TextFormField(
+                controller: selectedShape == 'Square'
+                    ? _widthController
+                    : _radianController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText:
                       "${selectedShape == 'Square' ? 'Width' : 'Radius'}",
-                  prefixIcon: Icon(selectedShape == 'Square'
-                      ? Icons.width_normal_outlined
-                      : Icons.circle_sharp),
+                  prefixIcon: Icon(
+                    selectedShape == 'Square'
+                        ? Icons.width_normal_outlined
+                        : Icons.circle_sharp,
+                  ),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.black),
                   ),
@@ -107,6 +98,7 @@ class _InputfromState extends State<Inputfrom> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: TextFormField(
+                  controller: _heightController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     labelText: 'Height',
@@ -147,9 +139,23 @@ class _InputfromState extends State<Inputfrom> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) {
-              return fromResult();
-            }),
+            MaterialPageRoute(
+              builder: (context) {
+                if (selectedShape == 'Square') {
+                  return fromResult(
+                    widthResult: _widht,
+                    heightResult: _height,
+                    radiusResult: 0,
+                  );
+                } else {
+                  return fromResult(
+                    widthResult: 0,
+                    heightResult: 0,
+                    radiusResult: _radian, // Corrected variable name
+                  );
+                }
+              },
+            ),
           );
         },
         style: ElevatedButton.styleFrom(
