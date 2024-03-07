@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "251061682506",
+    "project_id": "flutterapp-58ec6",
+    "storage_bucket": "flutterapp-58ec6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:251061682506:android:1c64211758513ec5c481b3",
+        "android_client_info": {
+          "package_name": "com.kindacode.test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDECaR6jDxWSzQbp34C4Ww9_k72aVrt6M4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
