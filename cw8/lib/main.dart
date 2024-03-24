@@ -201,8 +201,15 @@ class _HomePageState extends State<HomePage> {
                 margin: const EdgeInsets.all(15),
                 child: ListTile(
                   title: Text(_journals[index]['name']),
-                  subtitle: Text(
-                      'Weight: ${_journals[index]['weight']} kg | Height: ${_journals[index]['height']} cm  BMI: ${_journals[index]['bmi'].toStringAsFixed(2)}'),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Weight: ${_journals[index]['weight']} kg'),
+                      Text('Height: ${_journals[index]['height']} cm'),
+                      Text(
+                          'BMI: ${_journals[index]['bmi'].toStringAsFixed(2)}'),
+                    ],
+                  ),
                   trailing: SizedBox(
                     width: 100,
                     child: Row(
